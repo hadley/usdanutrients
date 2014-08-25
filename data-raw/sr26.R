@@ -15,6 +15,7 @@ food <- parse_file("FOOD_DES.txt")
 names(food) <- c("food_id", "grp_id", "desc", "abbr", "common", "manufacturer",
   "survey", "refuse", "ref_pct", "scientific", "n_factor", "pro_factor", "fat_factor",
   "carb_factor")
+food$survey <- food$survey == "Y"
 use_data(food)
 
 food_groups <- parse_file("FD_GROUP.txt")
