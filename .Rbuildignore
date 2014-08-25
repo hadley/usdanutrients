@@ -2,3 +2,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
+^relations\.graffle$
+^relations\.png$
