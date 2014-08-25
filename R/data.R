@@ -58,7 +58,7 @@
 #' if (require("dplyr")) {
 #'   food %>%
 #'     left_join(food_group) %>%
-#'     select(desc, group)
+#'     select(food, group)
 #' }
 "food_group"
 
