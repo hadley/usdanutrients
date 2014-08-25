@@ -1,0 +1,8 @@
+Package: nutrition
+Title: USDA nutrition data (release SR26)
+Version: 0.1
+Authors@R: 'Hadley Wickham <h.wickham@gmail.com> [aut,cre]'
+Description: Complete USDA nutrient database, release SR26.
+Depends: R
+License: CC0
+LazyData: true
