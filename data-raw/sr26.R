@@ -1,5 +1,4 @@
 library(dplyr)
-library(tidyr)
 library(devtools)
 library(httr)
 
