@@ -38,7 +38,7 @@
 #' \item{abbr}{International Network of Food Data Systems (INFOODS) tagname}
 #' \item{name}{Name of nutrient/food component}
 #' \item{precision}{Number of decimal places}
-#' \item{sort}{Used to sort nutrient records in the same order as various
+#' \item{seq}{Used to sort nutrient records in the same order as various
 #'  reports produced from SR.}
 #' }
 #' @examples
@@ -200,3 +200,23 @@
 #'   inner_join(cups)
 #' }
 "weight"
+
+#' Footnotes.
+#'
+#' This file (Table 13) contains additional information about the food item,
+#' household weight, and nutrient value.
+#'
+#' @format A data frame with 541 observations and 5 variables:
+#' \describe{
+#' \item{food_id}{Food identifier. Joins with \code{\link{food}}}
+#' \item{seq}{Sequence number}
+#' \item{type}{Type of footnote: D = footnote adding information to the food
+#'   description; M = footnote adding information to measure description;
+#'   N = footnote providing additional information on a nutrient value.
+#'   If the type = N, the Nutr_No will also be filled in.}
+#' \item{nutr_id}{Nutrient identifer. Joins with \code{\link{nutrient}}}
+#' \item{footnote}{Footnote text}
+#' }
+#' @examples
+#' footnote
+"footnote"

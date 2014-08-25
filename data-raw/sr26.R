@@ -30,7 +30,7 @@ nutrient$fortified[nutrient$fortified == ""] <- NA
 use_data(nutrient)
 
 nutrient_def <- parse_file("NUTR_DEF.txt")
-names(nutrient_def) <- c("nutr_id", "unit", "abbr", "name", "precision", "sort")
+names(nutrient_def) <- c("nutr_id", "unit", "abbr", "name", "precision", "seq")
 use_data(nutrient_def)
 
 source_type <- parse_file("SRC_CD.txt")
@@ -47,7 +47,7 @@ names(weight) <- c("food_id", "seq", "amount", "desc", "weight",
 use_data(weight)
 
 footnote <- parse_file("FOOTNOTE.txt")
-names(footnote) <- c("food_id", "footnote_id", "type", "nutr_id", "footnote")
+names(footnote) <- c("food_id", "seq", "type", "nutr_id", "footnote")
 use_data(footnote)
 
 reference <- parse_file("DATA_SRC.txt")
