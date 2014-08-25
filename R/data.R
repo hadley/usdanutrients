@@ -171,3 +171,32 @@
 #'   left_join(deriv)
 #' }
 "deriv"
+
+#' Weight.
+#'
+#' This file (Table 12) contains the weight in grams of a number of common
+#' measures for each food item.
+#'
+#' @format A data frame with 15,137 observations and 7 variables:
+#' \describe{
+#' \item{food_id}{Food identifier. Joins to \code{\link{food}}}
+#' \item{seq}{Sequence number.}
+#' \item{amount}{Unit modifier (e.g. 1 in 1 cup)}
+#' \item{desc}{Description (for example, cup, diced, and 1-inch pieces).}
+#' \item{weight}{Weight in grams.}
+#' \item{num_points}{Number of data points.}
+#' \item{sd}{Standard deviation}
+#' }
+#' @examples
+#' weight
+#'
+#' if (require("dplyr")) {
+#' # Find out weight of a cup of x
+#' cups <- weight %>%
+#'   filter(desc == "cup") %>%
+#'   select(food_id, weight)
+#' food %>%
+#'   select(food_id, desc) %>%
+#'   inner_join(cups)
+#' }
+"weight"
