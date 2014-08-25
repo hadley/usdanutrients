@@ -1,10 +1,14 @@
 library(dplyr)
 library(tidyr)
 library(devtools)
+library(httr)
 
 parse_file <- function(x) {
   base_url <- "http://www.ars.usda.gov/SP2UserFiles/Place/12354500/Data/SR26/asc/"
-  read.delim(paste0(base_url, x), sep = "^", quote = "~", na.strings = c("^^", "~~"),
+  resp <- GET(paste0(base_url, x))
+
+  text <- content(resp, "text", encoding = "ISO-8859-1")
+  read.delim(text = text, sep = "^", quote = "~", na.strings = c("^^", "~~"),
     header = FALSE, stringsAsFactors = FALSE) %>% tbl_df()
 }
 
@@ -18,11 +22,11 @@ food_groups <- parse_file("FD_GROUP.txt")
 names(food_groups) <- c("grp_id", "desc")
 use_data(food_groups)
 
-nutrients <- parse_file("NUT_DATA.txt")
-names(nutrients) <- c("food_id", "nutr_id", "nutr_val", "num_points", "se",
+nutrient <- parse_file("NUT_DATA.txt")
+names(nutrient) <- c("food_id", "nutr_id", "nutr_val", "num_points", "se",
   "source_type_id", "deriv_id", "impute_id", "fortified", "num_studies", "min",
   "max", "df", "lwr", "upr", "comments", "modified", "cc")
-use_data(nutrients)
+use_data(nutrient)
 
 nutrient_def <- parse_file("NUTR_DEF.txt")
 names(nutrient_def) <- c("nutr_id", "unit", "abbr", "name", "precision", "sort")
