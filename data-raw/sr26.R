@@ -18,9 +18,9 @@ names(food) <- c("food_id", "grp_id", "desc", "abbr", "common", "manufacturer",
 food$survey <- food$survey == "Y"
 use_data(food)
 
-food_groups <- parse_file("FD_GROUP.txt")
-names(food_groups) <- c("grp_id", "desc")
-use_data(food_groups)
+food_group <- parse_file("FD_GROUP.txt")
+names(food_group) <- c("grp_id", "group")
+use_data(food_group)
 
 nutrient <- parse_file("NUT_DATA.txt")
 names(nutrient) <- c("food_id", "nutr_id", "nutr_val", "num_points", "se",

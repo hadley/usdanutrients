@@ -5,7 +5,8 @@
 #' @format A data frame with 8463 observations and 14 variables:
 #' \describe{
 #' \item{food_id}{unique food identifier}
-#' \item{grp_id}{food group identifier}
+#' \item{grp_id}{food group identifier. Join with \code{\link{food_group}} to
+#'   get name.}
 #' \item{desc}{200-character description}
 #' \item{abbr}{60-character abbreviated description}
 #' \item{common}{other common names}
@@ -44,3 +45,19 @@
 #' nutrient_def
 "nutrient_def"
 
+#' Food groups lookup table.
+#'
+#' @format A data frame with 25 observations and 2 variables:
+#' \describe{
+#' \item{grp_id}{group id}
+#' \item{group}{group name}
+#' }
+#' @examples
+#' food_group
+#'
+#' if (require("dplyr")) {
+#'   food %>%
+#'     left_join(food_group) %>%
+#'     select(desc, group)
+#' }
+"food_group"
