@@ -5,6 +5,8 @@ Authors@R: 'Hadley Wickham <h.wickham@gmail.com> [aut,cre]'
 Description: Complete USDA nutrient database, release SR26.
 License: CC0
 LazyData: true
+Depends:
+    R (>= 2.10)
 Suggests:
     dplyr,
     tidyr
