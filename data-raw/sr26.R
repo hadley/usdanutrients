@@ -5,7 +5,7 @@ library(devtools)
 parse_file <- function(x) {
   base_url <- "http://www.ars.usda.gov/SP2UserFiles/Place/12354500/Data/SR26/asc/"
   read.delim(paste0(base_url, x), sep = "^", quote = "~", na.strings = c("^^", "~~"),
-    header = FALSE) %>% tbl_df()
+    header = FALSE, stringsAsFactors = FALSE) %>% tbl_df()
 }
 
 food <- parse_file("FOOD_DES.txt")
@@ -18,11 +18,38 @@ food_groups <- parse_file("FD_GROUP.txt")
 names(food_groups) <- c("grp_id", "desc")
 use_data(food_groups)
 
-# parse_file("DATA_SRC.txt")
-# parse_file("DATSRCLN.txt")
-# parse_file("DERIV_CD.txt")
-# parse_file("FOOTNOTE.txt")
-# parse_file("NUT_DATA.txt")
-# parse_file("NUTR_DEF.txt")
-# parse_file("SRC_CD.txt")
-# parse_file("WEIGHT.txt")
+nutrients <- parse_file("NUT_DATA.txt")
+names(nutrients) <- c("food_id", "nutr_id", "nutr_val", "num_points", "se",
+  "source_type_id", "deriv_id", "impute_id", "fortified", "num_studies", "min",
+  "max", "df", "lwr", "upr", "comments", "modified", "cc")
+use_data(nutrients)
+
+nutrient_def <- parse_file("NUTR_DEF.txt")
+names(nutrient_def) <- c("nutr_id", "unit", "abbr", "name", "precision", "sort")
+use_data(nutrient_def)
+
+source_type <- parse_file("SRC_CD.txt")
+names(source_type) <- c("source_type_id", "source_type")
+use_data(source_type)
+
+deriv <- parse_file("DERIV_CD.txt")
+names(deriv) <- c("deriv_id", "deriv")
+use_data(deriv)
+
+weight <- parse_file("WEIGHT.txt")
+names(weight) <- c("food_id", "seq", "amount", "desc", "weight",
+  "num_points", "sd")
+use_data(weight)
+
+footnote <- parse_file("FOOTNOTE.txt")
+names(footnote) <- c("food_id", "footnote_id", "type", "nutr_id", "footnote")
+use_data(footnote)
+
+source <- parse_file("DATA_SRC.txt")
+names(source) <- c("src_id", "authors", "title", "year", "journal", "vol_city",
+  "issue_state", "start_page", "end_page")
+use_data(source)
+
+nutrient_source <- parse_file("DATSRCLN.txt")
+names(nutrient_source) <- c("food_id", "nutr_id", "src_id")
+use_data(nutrient_source)
