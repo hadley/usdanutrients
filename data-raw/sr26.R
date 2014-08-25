@@ -50,11 +50,11 @@ footnote <- parse_file("FOOTNOTE.txt")
 names(footnote) <- c("food_id", "footnote_id", "type", "nutr_id", "footnote")
 use_data(footnote)
 
-source <- parse_file("DATA_SRC.txt")
-names(source) <- c("src_id", "authors", "title", "year", "journal", "vol_city",
+reference <- parse_file("DATA_SRC.txt")
+names(reference) <- c("ref_id", "authors", "title", "year", "journal", "vol_city",
   "issue_state", "start_page", "end_page")
-use_data(source)
+use_data(reference)
 
 nutrient_source <- parse_file("DATSRCLN.txt")
-names(nutrient_source) <- c("food_id", "nutr_id", "src_id")
+names(nutrient_source) <- c("food_id", "nutr_id", "ref_id")
 use_data(nutrient_source)
