@@ -26,6 +26,7 @@ nutrient <- parse_file("NUT_DATA.txt")
 names(nutrient) <- c("food_id", "nutr_id", "nutr_val", "num_points", "se",
   "source_type_id", "deriv_id", "impute_id", "fortified", "num_studies", "min",
   "max", "df", "lwr", "upr", "comments", "modified", "cc")
+nutrient$fortified[nutrient$fortified == ""] <- NA
 use_data(nutrient)
 
 nutrient_def <- parse_file("NUTR_DEF.txt")
