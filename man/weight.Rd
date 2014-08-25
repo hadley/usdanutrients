@@ -29,7 +29,7 @@ cups <- weight \%>\%
   filter(desc == "cup") \%>\%
   select(food_id, weight)
 food \%>\%
-  select(food_id, desc) \%>\%
+  select(food_id, food) \%>\%
   inner_join(cups)
 }
 }

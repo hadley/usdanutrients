@@ -12,7 +12,7 @@ parse_file <- function(x) {
 }
 
 food <- parse_file("FOOD_DES.txt")
-names(food) <- c("food_id", "grp_id", "desc", "abbr", "common", "manufacturer",
+names(food) <- c("food_id", "grp_id", "food", "food_abbr", "common", "manufacturer",
   "survey", "refuse", "ref_pct", "scientific", "n_factor", "pro_factor", "fat_factor",
   "carb_factor")
 food$survey <- food$survey == "Y"
@@ -23,14 +23,14 @@ names(food_group) <- c("grp_id", "group")
 use_data(food_group)
 
 nutrient <- parse_file("NUT_DATA.txt")
-names(nutrient) <- c("food_id", "nutr_id", "nutr_val", "num_points", "se",
+names(nutrient) <- c("food_id", "nutr_id", "value", "num_points", "se",
   "source_type_id", "deriv_id", "impute_id", "fortified", "num_studies", "min",
   "max", "df", "lwr", "upr", "comments", "modified", "cc")
 nutrient$fortified[nutrient$fortified == ""] <- NA
 use_data(nutrient)
 
 nutrient_def <- parse_file("NUTR_DEF.txt")
-names(nutrient_def) <- c("nutr_id", "unit", "abbr", "name", "precision", "seq")
+names(nutrient_def) <- c("nutr_id", "unit", "nutr_abbr", "nutr", "precision", "seq")
 use_data(nutrient_def)
 
 source_type <- parse_file("SRC_CD.txt")

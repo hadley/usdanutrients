@@ -7,8 +7,8 @@
 #' \item{food_id}{unique food identifier}
 #' \item{grp_id}{food group identifier. Join with \code{\link{food_group}} to
 #'   get name.}
-#' \item{desc}{200-character description}
-#' \item{abbr}{60-character abbreviated description}
+#' \item{food}{200-character description}
+#' \item{food_abbr}{60-character abbreviated description}
 #' \item{common}{other common names}
 #' \item{manufacturer}{manufacturer, if appropriate}
 #' \item{survey}{Included in USDA Food and Nutrient Database for Dietary
@@ -35,8 +35,8 @@
 #' \describe{
 #' \item{nutr_id}{Unique ID for nutrient}
 #' \item{unit}{Units of measure}
-#' \item{abbr}{International Network of Food Data Systems (INFOODS) tagname}
-#' \item{name}{Name of nutrient/food component}
+#' \item{nutr_abbr}{International Network of Food Data Systems (INFOODS) tagname}
+#' \item{nutr}{Name of nutrient/food component}
 #' \item{precision}{Number of decimal places}
 #' \item{seq}{Used to sort nutrient records in the same order as various
 #'  reports produced from SR.}
@@ -71,7 +71,7 @@
 #' \describe{
 #' \item{food_id}{Food identifier. Joins with \code{\link{food}}}
 #' \item{nutr_id}{Nutrient identifier. Joins with \code{\link{nutrient_def}}}
-#' \item{nutr_val}{Amount of nutrient in 100g.}
+#' \item{value}{Amount of nutrient in 100g.}
 #' \item{num_points}{Number of analyses used to compute value. If the number
 #'   of data points is 0, the value was calculated or imputed.}
 #' \item{se}{Standard error of the mean. NA if cannot be calculated. The
@@ -101,11 +101,23 @@
 #'
 #' # To find a name nutrient information for a specified food, you need to
 #' # join food, nutrient and nutrient_def
-#' if (require("dplyr")) {
-#'   food %>%
-#'     select(food_id, desc) %>%
-#'     left_join(nutrient %>% select(food_id, nutr_id, nutr_val)) %>%
-#'     left_join(nutrient_def %>% select(nutr_id, abbr))
+#' if (require("dplyr") && require("tidyr")) {
+#'   nutr_info <- food %>%
+#'     select(food_id, food) %>%
+#'     inner_join(nutrient %>% select(food_id, nutr_id, value)) %>%
+#'     inner_join(nutrient_def %>% select(nutr_id, nutr_abbr))
+#'
+#'  # Often easiest to understand if you spread the nutrient values out
+#'  # in to columns. We'll do this for the 10 most prevalent nutrients
+#'  top_nutr <- nutrient %>%
+#'    group_by(nutr_id) %>%
+#'    tally(sort = TRUE) %>%
+#'    head(10)
+#'
+#'  nutr_info %>%
+#'    semi_join(top_nutr) %>%
+#'    select(food_id, food, nutr_abbr, value) %>%
+#'    spread(nutr_abbr, value)
 #' }
 "nutrient"
 
@@ -196,7 +208,7 @@
 #'   filter(desc == "cup") %>%
 #'   select(food_id, weight)
 #' food %>%
-#'   select(food_id, desc) %>%
+#'   select(food_id, food) %>%
 #'   inner_join(cups)
 #' }
 "weight"
@@ -220,3 +232,26 @@
 #' @examples
 #' footnote
 "footnote"
+
+#' Nutrient sources
+#'
+#' This file (Table 14) is used resolve the many-to-many link between
+#' nutrients with references.
+#'
+#' @format A data frame with 213653 observations and 3 variables:
+#' \describe{
+#' \item{food_id}{Food identifier. Joins with \code{\link{nutrient}}}
+#' \item{nutr_id}{Nutrient identifer. Joins with \code{\link{nutrient}}}
+#' \item{ref_id}{Reference identifer. Joins with \code{\link{reference}}}
+#' }
+#' @examples
+#' nutrient_source
+#'
+#' if (require("dplyr")) {
+#'   # Connect nutrients to references
+#'   nutrient_source %>%
+#'     inner_join(nutrient_def %>% select(nutr_id, nutr)) %>%
+#'     inner_join(food %>% select(food_id, food)) %>%
+#'     inner_join(reference)
+#' }
+"nutrient_source"

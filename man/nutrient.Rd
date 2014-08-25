@@ -7,7 +7,7 @@
 \describe{
 \item{food_id}{Food identifier. Joins with \code{\link{food}}}
 \item{nutr_id}{Nutrient identifier. Joins with \code{\link{nutrient_def}}}
-\item{nutr_val}{Amount of nutrient in 100g.}
+\item{value}{Amount of nutrient in 100g.}
 \item{num_points}{Number of analyses used to compute value. If the number
   of data points is 0, the value was calculated or imputed.}
 \item{se}{Standard error of the mean. NA if cannot be calculated. The
@@ -44,11 +44,23 @@ nutrient
 
 # To find a name nutrient information for a specified food, you need to
 # join food, nutrient and nutrient_def
-if (require("dplyr")) {
-  food \%>\%
-    select(food_id, desc) \%>\%
-    left_join(nutrient \%>\% select(food_id, nutr_id, nutr_val)) \%>\%
-    left_join(nutrient_def \%>\% select(nutr_id, abbr))
+if (require("dplyr") && require("tidyr")) {
+  nutr_info <- food \%>\%
+    select(food_id, food) \%>\%
+    inner_join(nutrient \%>\% select(food_id, nutr_id, value)) \%>\%
+    inner_join(nutrient_def \%>\% select(nutr_id, nutr_abbr))
+
+ # Often easiest to understand if you spread the nutrient values out
+ # in to columns. We'll do this for the 10 most prevalent nutrients
+ top_nutr <- nutrient \%>\%
+   group_by(nutr_id) \%>\%
+   tally(sort = TRUE) \%>\%
+   head(10)
+
+ nutr_info \%>\%
+   semi_join(top_nutr) \%>\%
+   select(food_id, food, nutr_abbr, value) \%>\%
+   spread(nutr_abbr, value)
 }
 }
 \keyword{datasets}
