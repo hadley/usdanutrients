@@ -79,7 +79,7 @@
 #'   than three}
 #' \item{source_type_id}{Code indicating type of data. Joins with
 #'   \code{\link{source_type}}}
-#' \item{deriv_id}{Data derivation code. Joins with \code{\link{deriv_id}}}
+#' \item{deriv_id}{Data derivation code. Joins with \code{\link{deriv}}}
 #' \item{impute_id}{Food identifier for the item used to calculate a missing
 #'    value. Populated only for items added or updated starting with SR14.}
 #' \item{fortified}{Indicates a vitamin or mineral added for fortification
@@ -110,6 +110,12 @@
 "nutrient"
 
 #' Source type lookup.
+#'
+#' This file (Table 10) contains codes indicating the type of data (analytical,
+#' calculated, assumed zero, and so on) in the Nutrient Data file. To improve
+#' the usability of the database and to provide values for the FNDDS, NDL staff
+#' imputed nutrient values for a number of proximate components, total dietary
+#' fiber, total sugar, and vitamin and mineral values.
 #'
 #' @format A data frame with 10 observations and 2 variables:
 #' \describe{
@@ -143,3 +149,25 @@
 #' @examples
 #' reference
 "reference"
+
+
+#' Data derivation lookup.
+#'
+#' This file (Table 11) provides information on how the nutrient values were
+#' determined. The file contains the derivation codes and their descriptions
+#' deriv.
+#'
+#' @format A data frame with 55 observations and 2 variables:
+#' \describe{
+#' \item{deriv_id}{Unique identifer for deriv.}
+#' \item{deriv}{Text description.}
+#' }
+#' @examples
+#' deriv
+#'
+#' if (require("dplyr")) {
+#' nutrient %>%
+#'   select(nutr_id, deriv_id) %>%
+#'   left_join(deriv)
+#' }
+"deriv"

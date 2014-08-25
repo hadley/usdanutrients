@@ -12,7 +12,11 @@
 source_type
 }
 \description{
-Source type lookup.
+This file (Table 10) contains codes indicating the type of data (analytical,
+calculated, assumed zero, and so on) in the Nutrient Data file. To improve
+the usability of the database and to provide values for the FNDDS, NDL staff
+imputed nutrient values for a number of proximate components, total dietary
+fiber, total sugar, and vitamin and mineral values.
 }
 \examples{
 source_type

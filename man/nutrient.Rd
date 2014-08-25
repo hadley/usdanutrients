@@ -15,7 +15,7 @@
   than three}
 \item{source_type_id}{Code indicating type of data. Joins with
   \code{\link{source_type}}}
-\item{deriv_id}{Data derivation code. Joins with \code{\link{deriv_id}}}
+\item{deriv_id}{Data derivation code. Joins with \code{\link{deriv}}}
 \item{impute_id}{Food identifier for the item used to calculate a missing
    value. Populated only for items added or updated starting with SR14.}
 \item{fortified}{Indicates a vitamin or mineral added for fortification
