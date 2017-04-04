@@ -8,7 +8,7 @@ parse_file <- function(x, y) {
 }
 
 temp <- tempfile()
-download.file("https://www.ars.usda.gov/ARSUserFiles/80400525/Data/SR26/dnload/sr26.zip",temp)
+download.file("https://www.ars.usda.gov/ARSUserFiles/80400525/Data/SR/SR28/dnload/sr28asc.zip",temp)
 
 food <- parse_file("FOOD_DES.txt", temp)
 names(food) <- c("food_id", "grp_id", "food", "food_abbr", "common", "manufacturer",
